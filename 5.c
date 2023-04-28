@@ -1,38 +1,29 @@
 #include <stdio.h>
 int main()
 {
-    int i, j, k, m, n, p, q, a[10][10], b[10][10], c[10][10];
-    printf("Enter the size of matrix A \n");
-    scanf("%d%d", &m, &n);
-    printf("Enter the size of matrix B \n");
-    scanf("%d%d", &p, &q);
-    if (n != p)
-        printf("Matrix multiplication is not possible\n");
-    else
+    int a[100], n, i, key, low, mid = 0, high, found = 0;
+    printf("Enter the no of elements\n");
+    scanf("%d", &n);
+    printf("Enter %d elements in ascending order\n", n);
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    printf("Enter an element to search\n");
+    scanf("%d", &key);
+    low = 0;
+    high = n - 1;
+    while (low <= high && !found)
     {
-        printf("Enter the elements of matrix A \n");
-        for (i = 0; i < m; i++)
-            for (j = 0; j < n; j++)
-                scanf("%d", &a[i][j]);
-        printf("Enter the elements of matrix B \n");
-        for (i = 0; i < p; i++)
-            for (j = 0; j < q; j++)
-                scanf("%d", &b[i][j]);
-
-        for (i = 0; i < m; i++)
-            for (j = 0; j < q; j++)
-            {
-                c[i][j] = 0;
-                for (k = 0; k < n; k++)
-                    c[i][j] = c[i][j] + a[i][k] * b[k][j];
-            }
-        printf("The resultant matrix c is \n");
-        for (i = 0; i < m; i++)
-        {
-            for (j = 0; j < q; j++)
-                printf("%5d", c[i][j]);
-            printf("\n");
-        }
+        mid = (low + high) / 2;
+        if (key == a[mid])
+            found = 1;
+        else if (key < a[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
     }
+    if (found == 1)
+        printf("Key found at position %d\n", mid + 1);
+    else
+        printf("Key not found");
     return 0;
 }
